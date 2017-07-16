@@ -11,8 +11,8 @@ Before running this project, you need install this **dependencies**:
 1. Install ROS full-desk-version : [ ROS indigo wiki](http://wiki.ros.org/ROS/Installation).
 
 2. Install Baxter simulator workspace : [Install Baxter simulator workspace](http://sdk.rethinkrobotics.com/wiki/Simulator_Installation).
- * If you don't have a real Baxter robot, pls run this project in the Baxter gazebo simulator.
- * If you have a real Baxter robot, follow this website and  make sure that you can control you robot : [Baxter getting start](http://sdk.rethinkrobotics.com/wiki/Getting_Started).
+    * If you don't have a real Baxter robot, pls run this project in the Baxter gazebo simulator.
+    * If you have a real Baxter robot, follow this website and  make sure that you can control you robot : [Baxter getting start](http://sdk.rethinkrobotics.com/wiki/Getting_Started).
 3. Install Robotiq force torque driver : [force torque sensor driver](https://github.com/ros-industrial/robotiq/tree/jade-devel/robotiq_force_torque_sensor) , force torque sensor sensing the envrionemnt and give a reward to the RL agent. Don't worry, if you don't have this sensor, I will add this force torque sensor model to gazebo simulator, and update.
 
 # Let's Go
