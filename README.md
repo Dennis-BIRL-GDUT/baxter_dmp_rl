@@ -3,7 +3,7 @@ This repo is Baxter learnig pick project, which uses ROS DMP package and RL off-
 
 You can follow this README to know how it works.
 
-[exprement_image]:(https://github.com/Dennis-BIRL-GDUT/baxter_DMP_RL/blob/master/image/exprement.png)
+![exprement_image](https://github.com/Dennis-BIRL-GDUT/baxter_DMP_RL/blob/master/image/exprement.png)
 ## Dependencies
 
 Before running this project, you need install this **dependencies**:
