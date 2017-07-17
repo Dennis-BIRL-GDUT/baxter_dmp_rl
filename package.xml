@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <package>
-  <name>dmp</name>
-  <version>0.0.0</version>
-  <description>Implements Dynamic Movement Primitives in a robot agnostic way</description>
+  <name>baxter_dmp_rl</name>
+  <version>1.0.0</version>
+  <description>Implements DMP and RL in a robot agnostic way</description>
 
   <author>Scott Niekum</author>
-  <maintainer email="sniekum@cs.umass.edu">Scott Niekum</maintainer>
+  <maintainer email="dennis-birl@gmail.com">Dennis Chen</maintainer>
 
   <license>BSD</license>
   
-  <url type="website">http://www.ros.org/wiki/dmp</url>
+  <url type="website">https://github.com/Dennis-BIRL-GDUT</url>
   
   <buildtool_depend>catkin</buildtool_depend>
 

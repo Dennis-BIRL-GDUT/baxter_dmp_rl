@@ -25,7 +25,7 @@ import baxter_interface
 from baxter_interface import CHECK_VERSION
 # import RL agent
 from agent import  Agent, LearningAgent
-# import debug 
+# import debug
 import ipdb
 
 # DMP class
@@ -36,7 +36,7 @@ class Trajectory(object):
             'robot/limb/right/follow_joint_trajectory',
             FollowJointTrajectoryAction,
         )
-        # verify joint trajectory action servers are available       
+        # verify joint trajectory action servers are available
         r_server_up = self._right_client.wait_for_server(rospy.Duration(10.0))
         if not r_server_up:
             msg = ("Action server not available."
@@ -44,7 +44,7 @@ class Trajectory(object):
             rospy.logerr(msg)
             rospy.signal_shutdown(msg)
             sys.exit(1)
-        # create our goal request  
+        # create our goal request
         self._r_goal = FollowJointTrajectoryGoal()
         # limb interface - current angles needed for start move
         self._r_arm = baxter_interface.Limb('right')
@@ -166,7 +166,7 @@ class Trajectory(object):
                 # Set the initial position to be the current pose.
                 # This ensures we move slowly to the starting point of the
                 # trajectory from the current pose - The user may have moved
-                # arm since recording                
+                # arm since recording
                 cur_cmd = [self._r_arm.joint_angle(jnt) for jnt in self._r_goal.trajectory.joint_names]
                 self._add_point(cur_cmd, 'right', 0.0)
                 start_offset = find_start_offset(cmd)
@@ -177,8 +177,8 @@ class Trajectory(object):
             # add a point for this set of commands with recorded time
             cur_cmd = [cmd[jnt] for jnt in self._r_goal.trajectory.joint_names]
             self._add_point(cur_cmd, 'right', values[0] + start_offset)
-            
-            
+
+
 
     def _feedback(self, data):
         # Test to see if the actual playback time has exceeded
@@ -204,17 +204,17 @@ class Trajectory(object):
         """
         Sends FollowJointTrajectoryAction request
         """
-        
+
         self._right_client.send_goal(self._r_goal, feedback_cb=self._feedback)
         # Syncronize playback by waiting for the trajectories to start
         while not rospy.is_shutdown() and not self._get_trajectory_flag():
             rospy.sleep(0.05)
-        
+
 
     def stop(self):
         """
         Preempts trajectory execution by sending cancel goals
-        """    
+        """
 
         if (self._right_client.gh is not None and
             self._right_client.get_state() == actionlib.GoalStatus.ACTIVE):
@@ -233,9 +233,9 @@ class Trajectory(object):
         time_buffer = rospy.get_param(self._param_ns + 'goal_time', 0.0) + 1.5
         timeout = rospy.Duration(self._slow_move_offset +
                                  last_time +
-                                 time_buffer + 10 ) 
+                                 time_buffer + 10 )
         r_finish = self._right_client.wait_for_result(timeout)
-        # error_code 
+        # error_code
         r_result = (self._right_client.get_result().error_code == 0)
 
         # verify result
@@ -265,11 +265,11 @@ def main():
     robot_state.enable()
     # initializing publisher
     pub_action1_reward = rospy.Publisher('action1_reward',Float32, queue_size = 10)
-    pub_action2_reward = rospy.Publisher('action2_reward',Float32, queue_size = 10) 
+    pub_action2_reward = rospy.Publisher('action2_reward',Float32, queue_size = 10)
     pub_action3_reward = rospy.Publisher('action3_reward',Float32, queue_size = 10)
     pub_action4_reward = rospy.Publisher('action4_reward',Float32, queue_size = 10)
-    pub_action5_reward = rospy.Publisher('action5_reward',Float32, queue_size = 10)    
-    # force touq sensor subscriber
+    pub_action5_reward = rospy.Publisher('action5_reward',Float32, queue_size = 10)
+    # force torque sensor subscriber
     rospy.Subscriber("/robotiq_force_torque_wrench", geometry_msgs.msg.WrenchStamped, callback_getWrench)
     # RL agent
     current_reward = 0.0
@@ -285,16 +285,16 @@ def main():
     while ( agent.epsilon > agent.tolerance and result == True and not rospy.is_shutdown()):
 	result = False
 	# agent state input, return an action
-	limb_action = agent.choose_action(agent_state) 
+	limb_action = agent.choose_action(agent_state)
         traj.parse_file(limb_action)
         # for safe interrupt handling
-        rospy.on_shutdown(traj.stop)       
+        rospy.on_shutdown(traj.stop)
         traj.start()
         traj.wait()
 	right_gripper_action.close()
 	rospy.sleep(0.5)
         traj._r_goal.trajectory.points = list() # <- DMP class BUG
-	# return to start angles 
+	# return to start angles
         traj = Trajectory()
 	traj.parse_file(return_to_start)
 	rospy.on_shutdown(traj.stop)
