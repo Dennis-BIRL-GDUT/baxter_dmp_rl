@@ -10,9 +10,6 @@ EN | [中文](https://github.com/Dennis-BIRL-GDUT/baxter_DMP_RL/wiki/Baxter-DMP-
 
 >## Navigation
 1. <a href="#Summary">Summary</a>
-  1. <a href="#Files Location">Files Location</a>
-  1. <a href="#Subscriptions">Subscriptions</a>
-  1. <a href="#Publications">Publications</a>
 2. <a href="#Video">Video</a>
 3. <a href="#Quickstart">Quickstart</a>
 4. <a href="#Structure">Structure</a>
@@ -110,7 +107,7 @@ rosrun dmp baxter_r_arm_dmp.py
 <a name="Q2"></a>
 **Q2**. I don't have the **Robotiq force torque sensor**, What shoule I do?<br />
 **A2**. If you don't have Robotiq force touque sensor, which means you can't run this deno on the real Baxter robot, but I still have a sulotion, you can run this node in your gazebo simulator:
- 1. I will uptate this sulotion next time.
+ 1. I will update this sulotion next time.
 
 <br />
 ## !!! Warning !!!
